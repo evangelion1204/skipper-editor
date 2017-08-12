@@ -1,0 +1,17 @@
+.node {
+    margin-left: 10px;
+}
+
+.node span {
+    width: 5px;
+    height: 5px;
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+    text-align: center;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.node span {}
