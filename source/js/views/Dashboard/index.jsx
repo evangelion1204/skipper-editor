@@ -8,7 +8,12 @@ import Filters from 'components/eskip/Filters';
 import Routes from 'components/eskip/Routes';
 import TreeView from 'components/tree/TreeView';
 
-const routes = [{"id":"root","backend":"http://localhost:9080","predicates":[{"name":"Path2","args":["/"]}],"filters":[{"name":"Frontend","args":[]}]},{"id":"product","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku"]}],"filters":[{"name":"Frontend","args":[]}]},{"id":"catalog","backend":"http://localhost:9090","predicates":[{"name":"Path","args":["/categories/:category"]}],"filters":[{"name":"Frontend","args":[]},{"name":"hardLogin","args":[]}]}];
+const routes = [
+    {"id":"root","backend":"http://localhost:9080","predicates":[{"name":"Path2","args":["/"]}],"filters":[{"name":"Frontend","args":[]}]},
+    {"id":"product","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku1"]}],"filters":[{"name":"Frontend","args":[]}]},
+    {"id":"product_new","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku2"]}],"filters":[{"name":"Frontend","args":[]}]},
+    {"id":"catalog","backend":"http://localhost:9090","predicates":[{"name":"Path","args":["/categories/:category"]}],"filters":[{"name":"Frontend","args":[]},{"name":"hardLogin","args":[]}]}
+];
 
 @connect(state => ({
     filterFilters: getFiltersByType(state, 'filter'),
@@ -51,11 +56,11 @@ export default class Dashboard extends Component {
                     const predicate = predicateFilters[name];
 
                     return (
-                        predicate && 
+                        predicate &&
                         predicate.active &&
                         (!predicate.args || predicate.args.every((pattern, index) => args[index].indexOf(pattern) !== -1))
                     );
-                }) 
+                })
             });
 
         return (

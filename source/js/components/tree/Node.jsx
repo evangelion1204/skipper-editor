@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './node.scss';
 
@@ -28,10 +29,15 @@ export default class Node extends Component {
 
         return (
             <div className="node">
-                {hasChilds && <span className={collapsed ? 'collapsed' : ''} onClick={this.handleClick}></span>}
+                {hasChilds && <span className={classNames('toggle', { 'toggle--collapsed': collapsed })} onClick={this.handleClick}></span>}
                 {node.path}
                 {hasChilds && !collapsed && node.children.map(child => {
-                    return <Node node={child} />
+                    return (
+                        <div>
+                            <span className="branch" />
+                            <Node node={child} />
+                        </div>
+                    );
                 })}
                 {hasChilds && collapsed && <div>...</div>}
             </div>

@@ -1,17 +1,54 @@
 .node {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
-.node span {
-    width: 5px;
-    height: 5px;
+.branch {
+    width: 7px;
+    height: 7px;
     border: 1px solid black;
     border-top: none;
     border-right: none;
     text-align: center;
     display: inline-block;
-    margin-right: 5px;
     vertical-align: middle;
+
+    float: left;
+    margin: 7px 5px 0 5px;
 }
 
-.node span {}
+.toggle {
+    margin-right: 5px;
+
+    position: relative;
+
+    width: 12px;
+    height: 12px;
+
+    border: 1px solid grey;
+    border-radius: 3px;
+
+    display: inline-block;
+
+    font-size: 10px;
+    text-align: center;
+
+    color: black;
+
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        line-height: 8px;
+
+        content: '+';
+    }
+}
+
+.toggle--collapsed {
+    &:before {
+        content: '-';
+    }
+}
