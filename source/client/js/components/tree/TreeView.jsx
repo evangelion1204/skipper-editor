@@ -15,7 +15,7 @@ function appendRoute(tree, route) {
     const [path] = pathPredicate.args;
 
     const parts = path.split('/').filter(part => part !== '');
-    
+
     parts.reduce((root, part) => {
         let node = findNode(root, parts);
 
@@ -39,7 +39,7 @@ function buildTree(routes) {
             return route.predicates.find(predicate => predicate.name === 'Path');
         })
         .reduce((root, route) => {
-            const path = route.predicates.find(predicate => predicate.name === 'Path')
+            const path = route.predicates.find(predicate => predicate.name === 'Path');
             return root.add(path.args[0]);
         }, tree);
 }
@@ -57,7 +57,7 @@ export default class TreeView extends Component {
         const tree = buildTree(routes);
 
         return (
-            <Node node={tree.root} />
+            ( tree.root && <Node node={tree.root} /> )
         );
     }
 }

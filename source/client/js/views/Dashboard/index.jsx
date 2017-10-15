@@ -2,34 +2,40 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFiltersByType } from 'redux/filter/filter';
+import { getRoutes } from 'redux/routes/routes';
 import { uniqBy } from 'lodash';
-import Icon from 'components/Global/Icon';
 import Filters from 'components/eskip/Filters';
 import Routes from 'components/eskip/Routes';
 import TreeView from 'components/tree/TreeView';
+import Import from 'components/import/Import';
 
-const routes = [
-    {"id":"root","backend":"http://localhost:9080","predicates":[{"name":"Path2","args":["/"]}],"filters":[{"name":"Frontend","args":[]}]},
-    {"id":"product","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku1"]}],"filters":[{"name":"Frontend","args":[]}]},
-    {"id":"product_new","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku2"]}],"filters":[{"name":"Frontend","args":[]}]},
-    {"id":"catalog","backend":"http://localhost:9090","predicates":[{"name":"Path","args":["/categories/:category"]}],"filters":[{"name":"Frontend","args":[]},{"name":"hardLogin","args":[]}]}
-];
+// const routes = [
+//     {"id":"blog","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/blog/:blogId"]}],"filters":[{"name":"Frontend","args":[]}]},
+//     {"id":"blog_internal","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/blog/:blogId"]}, {"name":"Header","args":["X-Zalando-Source", "internal"]}],"filters":[{"name":"Frontend","args":[]}]},
+//     {"id":"blog_mobile","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/blog/:blogId"]}, {"name":"Header","args":["X-Zalando-Source", "mobile"]}],"filters":[{"name":"Frontend","args":[]}]},
+//     {"id":"product","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku1"]}],"filters":[{"name":"Frontend","args":[]}]},
+//     {"id":"product_new","backend":"http://localhost:9080","predicates":[{"name":"Path","args":["/products/:sku2"]}],"filters":[{"name":"Frontend","args":[]}]},
+//     {"id":"catalog","backend":"http://localhost:9090","predicates":[{"name":"Path","args":["/categories/:category"]}],"filters":[{"name":"Frontend","args":[]},{"name":"hardLogin","args":[]}]}
+// ];
 
 @connect(state => ({
     filterFilters: getFiltersByType(state, 'filter'),
     predicateFilters: getFiltersByType(state, 'predicate'),
+    routes: getRoutes(state),
 }), {})
 export default class Dashboard extends Component {
     static propTypes = {
         filterFilters: PropTypes.object,
         predicateFilters: PropTypes.object,
+        routes: PropTypes.array,
         dispatch: PropTypes.func,
     }
 
     render() {
         const {
             filterFilters,
-            predicateFilters
+            predicateFilters,
+            routes,
         } = this.props;
 
         const filters = uniqBy(routes
@@ -65,6 +71,7 @@ export default class Dashboard extends Component {
 
         return (
             <div className='Dashboard'>
+                <Import />
                 <h1>Predicates</h1>
                 <Filters filters={predicates} type="predicate" />
                 <h1>Filters</h1>
@@ -76,4 +83,5 @@ export default class Dashboard extends Component {
           </div>
         );
     }
+
 }
