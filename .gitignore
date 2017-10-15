@@ -4,5 +4,5 @@ build
 .module-cache
 *.log*
 _nogit
-eskip
+/eskip
 package-lock.json
